@@ -9,6 +9,12 @@ target/
 # VS Code
 .vscode/
 
+.mvn/wrapper
+.gitattributes
+.gitignore
+.gitignore.txt
+mvnw
+mvnw.cmd
 # Logs
 logs/
 *.log
