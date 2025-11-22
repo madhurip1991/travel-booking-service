@@ -1,6 +1,9 @@
 package com.travel.travel_booking_service.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -8,8 +11,9 @@ import java.util.UUID;
 @Entity
 @Table(name="payment_events")
 public class PaymentEvents {
+
     @Id
-    @GeneratedValue()
+    @Column(nullable = false)
     private UUID transactionId;
 
     @Column(nullable = false)
@@ -24,7 +28,6 @@ public class PaymentEvents {
     public PaymentEvents() {
     }
     public PaymentEvents(UUID bookingId, Double amountPaid, LocalDateTime paymentTime) {
-//        this.transactionId = transactionId;
         this.bookingId = bookingId;
         this.amountPaid = amountPaid;
         this.paymentTime = paymentTime;

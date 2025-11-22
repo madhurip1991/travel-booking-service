@@ -1,19 +1,21 @@
 package com.travel.travel_booking_service.security;
 
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 
 
 public class JwtUtil {
-
-    // Shared secret key (store securely in production)
-    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-
+    private static final String SECRET_STRING = "ThisIsAVeryLongAndSecureSecretKeyThatMustBeSharedAcrossApplications";
+    private static final Key key;
+    static {
+        // Ensure the key is at least 256 bits (32 bytes) for HS256 algorithm
+        byte[] decodedKey = Base64.getEncoder().encode(SECRET_STRING.getBytes());
+        key = new SecretKeySpec(decodedKey, 0, decodedKey.length, "HmacSHA256");
+    }
     // Generate JWT token for a service
     public static String generateToken(String serviceName) {
         return Jwts.builder()
@@ -26,6 +28,7 @@ public class JwtUtil {
     }
 
     // Validate JWT token
+
     public static void validateToken(String token) {
         Jwts.parserBuilder()
                 .setSigningKey(key)
